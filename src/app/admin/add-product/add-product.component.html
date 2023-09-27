@@ -1,24 +1,28 @@
 <form #ref="ngForm" (ngSubmit)="onAddProduct(ref.value)" class="w-75 mx-auto mt-5">
     <div class="form-floating mb-3">
-        <input type="text" class="form-control" id="productname" placeholder="name@example.com" name="productname"
+        <input type="text" class="form-control" id="name" placeholder="name" name="name"
             ngModel>
-        <label for="username">Productname</label>
+        <label for="name">Full Name</label>
     </div>
     <div class="form-floating mb-3">
-        <input type="text" class="form-control" id="model" placeholder="model" name="model" ngModel>
-        <label for="model">Model</label>
+        <input type="number" class="form-control" id="mobileno" placeholder="mobileno" name="mobileno" ngModel>
+        <label for="mobileno">Mobile Number</label>
     </div>
     <div class="form-floating mb-3">
-        <input type="number" class="form-control" id="price" placeholder="name@example.com" name="price" ngModel>
-        <label for="email">Price </label>
+        <input type="text" class="form-control" id="purpose" placeholder="purpose" name="purpose" ngModel>
+        <label for="purpose">Purpose</label>
     </div>
     <div class="form-floating mb-3">
-        <textarea type="date" class="form-control" id="dob" placeholder="Email" name="description" ngModel></textarea>
-        <label for="dob">Description</label>
+        <input type="number" class="form-control" id="amount" placeholder="amount" name="amount" ngModel>
+        <label for="amount">Amount </label>
+    </div>
+    <div class="form-floating mb-3">
+        <textarea type="date" class="form-control" id="description" placeholder="description" name="description" ngModel></textarea>
+        <label for="description">Description</label>
     </div>
 
 
-    <input type="file" name="photo" class="form-control mb-3" ngModel (change)="selectFile($event)">
+    <input type="file" name="receipt" class="form-control mb-3" ngModel (change)="selectFile($event)">
 
-    <button class="btn btn-success" type="submit">Add product</button>
+    <button class="btn btn-success" type="submit">Add this Wedding Expense</button>
 </form>

@@ -10,23 +10,23 @@ const multerObj = require("./middlewares/multerCloudinary")
 productApi.post('/add-product', multerObj.single('photo'), expressErrorHandler(async (req, res, next) => {
 
 
-
+    let userCollectionObj = req.app.get("userCollectionObj")
     let productCollectionObject = req.app.get("productCollectionObject")
 
     let newProduct = JSON.parse(req.body.prodObj);
-
+     //console.log(req.body);
     //search
-    let product = await productCollectionObject.findOne({ model: newProduct.model })
-
+    //let product = await productCollectionObject.findOne({ model: newProduct.model })
+    let mno = await userCollectionObj.findOne({ username: newProduct.mobileno })
     //if proudct is existed
-    if (product !== null) {
-        res.send({ message: "Product already existed" })
+    if (mno === null) {
+        res.send({ message: "user not existed" })
     }
     else {
-        newProduct.productImage = req.file.path;
+        newProduct.receipt = req.file.path;
         delete newProduct.photo;
         await productCollectionObject.insertOne(newProduct)
-        res.send({ message: "New product added" })
+        res.send({ message: "New expense added" })
     }
 
 
@@ -41,6 +41,20 @@ productApi.get("/getproducts", expressErrorHandler(async (req, res, next) => {
     let products = await productCollectionObject.find().toArray()
 
     res.send({ message: products })
+
+}))
+
+productApi.get("/getproductsbyid/:username", expressErrorHandler(async (req, res, next) => {
+
+
+    let un = Number(req.params.username);
+    let productCollectionObject = req.app.get("productCollectionObject")
+
+    let products = await productCollectionObject.findOne({ mobileno: un })
+    expenses=[]
+    expenses.push(products)
+   //console.log(expenses)
+    res.send({ message: expenses })
 
 }))
 

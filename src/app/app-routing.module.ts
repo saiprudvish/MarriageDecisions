@@ -6,12 +6,14 @@ import { RegisterComponent } from './register/register.component';
 import { UsercartComponent } from './usercart/usercart.component';
 import { UserprofileComponent } from './userprofile/userprofile.component';
 import { ViewProductsComponent } from './view-products/view-products.component';
+import { ViewUserproductsComponent } from './view-userproducts/view-userproducts.component';
 
 const routes: Routes = [
   {path:"home",component:HomeComponent},
   {path:"register",component:RegisterComponent},
   {path:"login",component:LoginComponent},
   {path:"userprofile/:username",component:UserprofileComponent,children:[
+    {path:"view-uproducts",component:ViewUserproductsComponent},
     {path:"view-products",component:ViewProductsComponent},
     {path:"view-cart",component:UsercartComponent},
     {path:'',redirectTo:'view-products',pathMatch:'full'}

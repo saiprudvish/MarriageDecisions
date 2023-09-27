@@ -2,7 +2,7 @@
 const exp = require("express")
 const app = exp();
 const path = require("path")
-require("dotenv").config()
+
 
 //connect angular app with express server
 app.use(exp.static(path.join(__dirname, './dist/MEAN-APP/')))
@@ -17,7 +17,7 @@ const mc = require("mongodb").MongoClient;
 
 
 //connection string
-const databaseUrl = process.env.DATABASE_URL;
+const databaseUrl ="mongodb+srv://prudvish_database:Sai123457@cluster1.bxt0f.mongodb.net/MarraigeDecisions?retryWrites=true&w=majority"
 
 //const databaseUrl="mongodb://<username>:<password>@cluster0-shard-00-00.rjvoz.mongodb.net:27017,cluster0-shard-00-01.rjvoz.mongodb.net:27017,cluster0-shard-00-02.rjvoz.mongodb.net:27017/myFirstDatabase?ssl=true&replicaSet=Cluster0-shard-0&authSource=admin&retryWrites=true&w=majority"
 
@@ -31,7 +31,7 @@ mc.connect(databaseUrl, { useNewUrlParser: true, useUnifiedTopology: true }, (er
     }
     else {
         //get database object
-        let databaseObj = client.db("vnrdb2021")
+        let databaseObj = client.db("MarraigeDecisions")
         //create usercollection object
 
         let userCollectionObj = databaseObj.collection("usercollection")
@@ -72,5 +72,5 @@ app.use((err, req, res, next) => {
 
 
 //assign port
-const port = process.env.PORT || 8080;
+const port =  4132;
 app.listen(port, () => console.log(`server on ${port}...`))

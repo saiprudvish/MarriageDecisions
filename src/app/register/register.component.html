@@ -1,9 +1,13 @@
 <p class="display-4 text-center text-info m-5">Signup here</p>
 <form #ref="ngForm" (ngSubmit)="onSignup(ref.value)" class="w-75 mx-auto mt-5">
     <div class="form-floating mb-3">
-        <input type="username" class="form-control" id="username" placeholder="name@example.com" name="username"
+        <input type="text" class="form-control" id="name" placeholder="name" name="name"
             ngModel>
-        <label for="username">Username</label>
+        <label for="name">Full Name</label>
+    </div>
+    <div class="form-floating mb-3">
+        <input type="number" class="form-control" id="username" placeholder="mobileno" name="username" ngModel>
+        <label for="username">Mobile Number</label>
     </div>
     <div class="form-floating mb-3">
         <input type="password" class="form-control" id="password" placeholder="Password" name="password" ngModel>

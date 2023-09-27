@@ -4,7 +4,6 @@ const userApi = exp.Router();
 const expressErrorHandler = require("express-async-handler")
 const bcryptjs = require("bcryptjs")
 const jwt = require("jsonwebtoken")
-require("dotenv").config()
 
 const checkToken = require("./middlewares/verifyToken")
 
@@ -86,8 +85,9 @@ userApi.post("/createuser", multerObj.single('photo'), expressErrorHandler(async
 
     //search for existing user
     let user = await userCollectionObj.findOne({ username: newUser.username })
+    let mno = await userCollectionObj.findOne({ mobileno: newUser.mobileno })
     //if user existed
-    if (user !== null) {
+    if (user !== null && mno!==null) {
         res.send({ message: "User already existed" });
     }
     else {
@@ -96,7 +96,7 @@ userApi.post("/createuser", multerObj.single('photo'), expressErrorHandler(async
         //replace password
         newUser.password = hashedPassword;
         //add image url
-        newUser.profileImage = req.file.path;
+        newUser.receipt = req.file.path;
         delete newUser.photo;
         //insert
         await userCollectionObj.insertOne(newUser)
@@ -151,10 +151,13 @@ userApi.post('/login', expressErrorHandler(async (req, res) => {
 
     //get user credetials
     let credentials = req.body;
+   mno= Number(credentials.username)
+   
     //search user by username
-    let user = await userCollectionObj.findOne({ username: credentials.username })
+    let user = await userCollectionObj.findOne({ username: mno })
+
     //if user not found
-    if (user === null) {
+    if (user === null ) {
         res.send({ message: "invalid username" })
     }
     else {
@@ -166,9 +169,9 @@ userApi.post('/login', expressErrorHandler(async (req, res) => {
         }
         else {
             //create a token
-            let signedToken = jwt.sign({ username: credentials.username }, process.env.SECRET, { expiresIn: 10 })
+            let signedToken = jwt.sign({ username: mno }, 'dhhhhfhhvkjabacd', { expiresIn: 10 })
             //send token to client
-            res.send({ message: "login success", token: signedToken, username: credentials.username, userObj: user })
+            res.send({ message: "login success", token: signedToken, username: mno , userObj: user })
         }
 
     }
@@ -200,7 +203,7 @@ userApi.post("/add-to-cart", expressErrorHandler(async (req, res, next) => {
         await userCartCollectionObject.insertOne(newUserCartObject)
 
         let latestCartObj = await userCartCollectionObject.findOne({ username: newProdObject.username })
-        res.send({ message: "New product Added", latestCartObj: latestCartObj })
+        res.send({ message: "New expense Added", latestCartObj: latestCartObj })
 
     }
     //if existed
@@ -211,7 +214,7 @@ userApi.post("/add-to-cart", expressErrorHandler(async (req, res, next) => {
         //update document
         await userCartCollectionObject.updateOne({ username: newProdObject.username }, { $set: { ...userCartObj } })
         let latestCartObj = await userCartCollectionObject.findOne({ username: newProdObject.username })
-        res.send({ message: "New product Added", latestCartObj: latestCartObj })
+        res.send({ message: "New expense Added", latestCartObj: latestCartObj })
     }
 
 

@@ -17,7 +17,9 @@ export class AdminService {
     
   }
 
-
+  getProductsbyid(username):Observable<any>{
+    return this.hc.get(`/product/getproductsbyid/${username}`)
+  }
   //to read all products
   getProducts():Observable<any>{
 

@@ -1,6 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { UserService } from '../user.service';
+import { AdminService } from '../admin/admin.service';
 
 @Component({
   selector: 'app-userprofile',
@@ -10,17 +11,19 @@ import { UserService } from '../user.service';
 export class UserprofileComponent implements OnInit {
 
   userObj;
-
+ expenses=[];
   count;
-  constructor(private hc:HttpClient,private us:UserService) { }
+  constructor(private adminService:AdminService,private hc:HttpClient,private us:UserService) { }
 
   ngOnInit(): void {
-    //get user data from local storage
+    
+    // //get user data from local storage
     this.userObj= JSON.parse(localStorage.getItem("userObj"))
-    //get userCartObj from API
-    this.us.getProductsFromUserCart(this.userObj.username).subscribe(
+    
+    this.adminService.getProducts().subscribe(
+
       res=>{
-        if(res.message==='Cart-empty'){
+        if(res.message.length===0){
           this.us.updateDataObservable(0)
         }
         else{
@@ -31,12 +34,11 @@ export class UserprofileComponent implements OnInit {
               this.count=0;
            }
            else{
-             this.count=prodObj.products.length;
+             this.count=this.expenses.length;
            }
         })
       }
     )
-
 
   }
 

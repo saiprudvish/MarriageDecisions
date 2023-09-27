@@ -11,6 +11,7 @@ import {HttpClientModule, HTTP_INTERCEPTORS} from '@angular/common/http'
 import { AuthorizationService } from './authorization.service';
 import { SharedModule } from './shared.module';
 import { UsercartComponent } from './usercart/usercart.component';
+import { ViewUserproductsComponent } from './view-userproducts/view-userproducts.component';
 
 @NgModule({
   declarations: [
@@ -19,7 +20,8 @@ import { UsercartComponent } from './usercart/usercart.component';
     RegisterComponent,
     LoginComponent,
     UserprofileComponent,
-    UsercartComponent
+    UsercartComponent,
+    ViewUserproductsComponent
   ],
   imports: [
     BrowserModule,

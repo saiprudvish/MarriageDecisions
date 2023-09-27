@@ -38,7 +38,7 @@ export class AddProductComponent implements OnInit {
     this.adminService.addNewProduct(formData).subscribe(
       res=>{
           if(res.message=='New product added'){
-            alert("New product added")
+            alert("New Expense added")
             //navigate to view products 
           }
           else{
@@ -46,10 +46,12 @@ export class AddProductComponent implements OnInit {
           }
       },
       err=>{
-        console.log("err in adding rpoduct",err)
+        console.log("err in adding Expense",err)
         alert("Something went wrong in adding product")
       }
     )
+
+    
    
   }
 

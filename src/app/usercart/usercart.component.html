@@ -1,15 +1,22 @@
 <table class="table text-center mx-auto mt-5">
     <thead>
-        <th>Productname</th>
-        <th>Model</th>
-        <th>Image</th>
+        <th>NAME</th>
+        <th>MOBILE NO</th>
+        <th>AMOUNT</th>
+        <th>DESCRIPTION</th>
+        <th>PURPOSE</th>
+        <th>RECEIPT</th>
     </thead>
     <tbody>
-        <tr *ngFor="let product of products">
-            <td>{{product.productname}}</td>
-            <td>{{product.model}}</td>
+        <tr *ngFor="let product of expenses">
+
+            <td>{{product.name}}</td>
+            <td>{{product.mobileno}}</td>
+            <td>{{product.amount}}</td>
+            <td>{{product.description}}</td>
+            <td>{{product.purpose}}</td>
             <td>
-                <img src={{product.productImage}} width="100px" alt="">
+                <img src={{product.receipt}} width="100px" alt="">
             </td>
         </tr>
     </tbody>
