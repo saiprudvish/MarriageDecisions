@@ -13,13 +13,14 @@ const adminApi = require('./APIS/admin-api')
 const productApi = require("./APIS/product-api")
 //import MongoCLient
 const mc = require("mongodb").MongoClient;
+require("dotenv").config()
+
 
 
 
 //connection string
-const databaseUrl ="mongodb+srv://prudvish_database:Sai123457@cluster1.bxt0f.mongodb.net/MarraigeDecisions?retryWrites=true&w=majority"
+const databaseUrl = process.env.DATABASE_URL;
 
-//const databaseUrl="mongodb://<username>:<password>@cluster0-shard-00-00.rjvoz.mongodb.net:27017,cluster0-shard-00-01.rjvoz.mongodb.net:27017,cluster0-shard-00-02.rjvoz.mongodb.net:27017/myFirstDatabase?ssl=true&replicaSet=Cluster0-shard-0&authSource=admin&retryWrites=true&w=majority"
 
 
 
@@ -58,6 +59,13 @@ app.use("/admin", adminApi)
 app.use("/product", productApi)
 
 
+app.get('*',(req,res) =>{
+    res.sendFile(path.join(__dirname,'dist/MEAN-APP/index.html'), function(err){
+        if(err){
+            res.status(500).send(err)
+        }
+    })
+})
 
 //invalid path
 app.use((req, res, next) => {
@@ -72,5 +80,5 @@ app.use((err, req, res, next) => {
 
 
 //assign port
-const port =  4132;
+const port =  process.env.PORT || 8080;
 app.listen(port, () => console.log(`server on ${port}...`))

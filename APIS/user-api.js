@@ -8,7 +8,7 @@ const jwt = require("jsonwebtoken")
 const checkToken = require("./middlewares/verifyToken")
 
 const multerObj = require("./middlewares/multerCloudinary")
-
+require("dotenv").config()
 
 
 
@@ -169,7 +169,7 @@ userApi.post('/login', expressErrorHandler(async (req, res) => {
         }
         else {
             //create a token
-            let signedToken = jwt.sign({ username: mno }, 'dhhhhfhhvkjabacd', { expiresIn: 10 })
+            let signedToken = jwt.sign({ username: mno }, process.env.SECRET , { expiresIn: 10 })
             //send token to client
             res.send({ message: "login success", token: signedToken, username: mno , userObj: user })
         }

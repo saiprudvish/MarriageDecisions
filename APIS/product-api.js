@@ -3,7 +3,7 @@ const productApi = exp.Router();
 const expressErrorHandler = require("express-async-handler")
 productApi.use(exp.json())
 const multerObj = require("./middlewares/multerCloudinary")
-
+require("dotenv").config()
 
 //adding new product
 

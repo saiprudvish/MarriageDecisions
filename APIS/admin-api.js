@@ -16,7 +16,7 @@ adminApi.post("/login", expressErrorHandler(async (req, res, next) => {
         res.send({ message: "Invalid password" })
     } else {
         //create a token
-        let signedToken = jwt.sign({ username: credentials.username }, 'abcdef', { expiresIn: 10 })
+        let signedToken = jwt.sign({ username: credentials.username }, process.env.SECRET, { expiresIn: 10 })
         //send token to client
         res.send({ message: "login success", token: signedToken, username: credentials.username })
     }
